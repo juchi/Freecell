@@ -2,14 +2,21 @@
 #include "board.h"
 #include "cardwidget.h"
 #include "cardspotproxy.h"
-#include <QFrame>
+#include <QLabel>
 
 AceSpot::AceSpot(Board* board) : CardSpot(board)
 {
     mProxy = new CardSpotProxy(this);
-    QFrame* widget = new QFrame();
+    QLabel* widget = new QLabel();
     widget->resize(CardWidget::WIDTH, CardWidget::HEIGHT);
-    widget->setStyleSheet("background-color:#00FF00;border:1px solid black;");
+    widget->setStyleSheet("background-color:#00FF00;border:1px solid black;color:#00AA00;");
+    widget->setText("A");
+    widget->setAlignment(Qt::AlignCenter);
+
+    QFont font = widget->font();
+    font.setPixelSize(CardWidget::HEIGHT * 0.4);
+    widget->setFont(font);
+
     mProxy->setWidget(widget);
     mBoard->addItem(mProxy);
 }

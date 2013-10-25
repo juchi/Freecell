@@ -4,7 +4,6 @@
 Deck::Deck(Board* board)
 {
     build(board);
-    shuffle();
 }
 
 void Deck::shuffle()
@@ -35,7 +34,7 @@ void Deck::build(Board* board)
 
     for (cardcolor i = HEARTS; i<= CLUBS; i++) {
         for (cardvalue j = ACE; j <= KING; j++) {
-            mCards.push_back(new Card(i, j, board));
+            pushCard(new Card(i, j, board));
         }
     }
 }
@@ -46,6 +45,11 @@ Card* Deck::drawCard()
     mCards.pop_back();
 
     return card;
+}
+
+void Deck::pushCard(Card* card)
+{
+    mCards.push_back(card);
 }
 
 int Deck::getSize()

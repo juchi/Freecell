@@ -217,6 +217,16 @@ void Card::setZIndex(int index, bool cascade)
     }
 }
 
+void Card::show()
+{
+    mWidget->show();
+}
+
+void Card::hide()
+{
+    mWidget->hide();
+}
+
 void Card::select()
 {
     mBoard->selectCard(this);

@@ -8,11 +8,13 @@
 #include "deck.h"
 
 class QGraphicsProxyWidget;
-class QGraphicsScene;
 class QGraphicsView;
+class QWidget;
+
 class AceSpot;
 class ColumnSpot;
 class Freecell;
+class BoardScene;
 
 class Board : public QObject
 {
@@ -21,6 +23,8 @@ public:
     Board();
 
     void dealCards();
+    void collectCards();
+
     void freeCard(Card* card);
     int countFreeCells();
     bool hasEnoughFreecells(int cardsToMove);
@@ -33,6 +37,11 @@ public:
     Card* getSelectedCard();
     void addItem(QGraphicsProxyWidget*);
 
+    QWidget* getBoardWidget();
+
+public slots:
+    bool tryAutomaticAceMove(Card* card = 0);
+
 protected:
     std::vector<AceSpot*> mAceSpots;
     std::vector<Freecell*> mFreeCells;
@@ -43,9 +52,10 @@ protected:
 
     Deck* mDeck;
     QGraphicsView *mBoardWidget;
-    QGraphicsScene* mScene;
+    BoardScene* mScene;
 
     Card* mSelectedCard;
+    std::vector<Card*> mCards;
 };
 
 #endif // BOARD_H

@@ -14,6 +14,7 @@ public:
     void shuffle();
     void showCards();
     Card* drawCard();
+    void pushCard(Card*);
 
     int getSize();
 

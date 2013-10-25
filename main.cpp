@@ -3,6 +3,8 @@
 using namespace std;
 
 #include "board.h"
+#include "mainwindow.h"
+
 #include <QApplication>
 
 int main (int argc, char * argv[])
@@ -12,7 +14,8 @@ int main (int argc, char * argv[])
 
     QApplication app(argc, argv);
 
-    Board board;
+    MainWindow window;
+    window.show();
 
     return app.exec();
 }

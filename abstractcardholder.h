@@ -15,6 +15,7 @@ public:
 
     virtual bool canStackCard(Card* card) = 0;
     virtual bool isStackable() = 0;
+    virtual void select() = 0;
 
     virtual QPoint getChildPosition() = 0;
     virtual int getZIndex();

@@ -45,6 +45,8 @@ public:
     int getTopZIndex();
     int getZIndex();
     void setZIndex(int index, bool cascade = true);
+    void hide();
+    void show();
 
     void select();
     void setSelected(bool selected);

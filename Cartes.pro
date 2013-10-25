@@ -13,7 +13,9 @@ SOURCES += main.cpp \
     abstractcardholder.cpp \
     columnspot.cpp \
     cardspotproxy.cpp \
-    acespot.cpp
+    acespot.cpp \
+    mainwindow.cpp \
+    boardscene.cpp
 
 HEADERS += \
     card.h \
@@ -26,7 +28,9 @@ HEADERS += \
     abstractcardholder.h \
     columnspot.h \
     cardspotproxy.h \
-    acespot.h
+    acespot.h \
+    mainwindow.h \
+    boardscene.h
 
 RESOURCES += \
     resources.qrc
