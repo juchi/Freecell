@@ -9,9 +9,9 @@ enum cardvalue {ACE=1, JACK=11, QUEEN=12, KING=13};
 enum cardcolor {HEARTS=1, DIAMONDS=2, SPADES=3, CLUBS=4};
 
 class CardWidget;
-
 class CardProxy;
 class Board;
+class QPixmap;
 
 class Card : public AbstractCardHolder
 {
@@ -29,10 +29,11 @@ public:
     void setOnAceSpot(bool);
     bool isOnAceSpot();
 
-    std::string getValueName();
-    std::string getColorName();
+    QString getValueName();
+    QString getColorName();
     void presents();
-    std::string getLabel();
+    QString getLabel();
+    QPixmap getWidgetPixmap();
 
     cardvalue getValue();
     cardcolor getColor();

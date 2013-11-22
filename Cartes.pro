@@ -1,3 +1,5 @@
+cache()
+
 QT += widgets
 QT += core
 CONFIG += console

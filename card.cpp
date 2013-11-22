@@ -15,7 +15,7 @@ Card::Card(cardcolor color, cardvalue value, Board* board) : AbstractCardHolder(
     mIsOnAceSpot = false;
 
     mWidget = new CardWidget();
-    mWidget->setText(getLabel().c_str());
+    mWidget->setText(getLabel());
     mWidget->setColor(getColor());
     setSelected(false);
 
@@ -26,12 +26,17 @@ Card::Card(cardcolor color, cardvalue value, Board* board) : AbstractCardHolder(
 
 void Card::presents()
 {
-    std::cout << getLabel() << std::endl;
+    std::cout << getLabel().toStdString() << std::endl;
 }
 
-std::string Card::getLabel()
+QString Card::getLabel()
 {
     return getValueName() + " of " + getColorName();
+}
+
+QPixmap Card::getWidgetPixmap()
+{
+    return mWidget->grab();
 }
 
 void Card::setParent(AbstractCardHolder* parent)
@@ -97,9 +102,9 @@ bool Card::isOnAceSpot()
     return mIsOnAceSpot;
 }
 
-std::string Card::getValueName()
+QString Card::getValueName()
 {
-    std::string cardValue = "";
+    QString cardValue = "";
 
     switch (mValue) {
     case ACE:
@@ -117,16 +122,16 @@ std::string Card::getValueName()
     default:
         std::stringstream ss;
         ss << mValue;
-        cardValue = ss.str();
+        cardValue = ss.str().c_str();
         break;
     }
 
     return cardValue;
 }
 
-std::string Card::getColorName()
+QString Card::getColorName()
 {
-    std::string colorName = "";
+    QString colorName = "";
 
     switch (mColor) {
     case HEARTS:

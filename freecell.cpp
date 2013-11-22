@@ -8,6 +8,8 @@
 Freecell::Freecell(Board* board) : CardSpot(board)
 {
     mProxy = new CardSpotProxy(this);
+    mProxy->setData(0, QVariant("freecell"));
+
     QFrame* widget = new QFrame();
     widget->resize(CardWidget::WIDTH, CardWidget::HEIGHT);
     widget->setStyleSheet("background-color:#00FF00;border:1px solid black;");

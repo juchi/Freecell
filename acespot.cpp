@@ -7,6 +7,7 @@
 AceSpot::AceSpot(Board* board) : CardSpot(board)
 {
     mProxy = new CardSpotProxy(this);
+    mProxy->setData(0, QVariant("acespot"));
     QLabel* widget = new QLabel();
     widget->resize(CardWidget::WIDTH, CardWidget::HEIGHT);
     widget->setStyleSheet("background-color:#00FF00;border:1px solid black;color:#00AA00;");
