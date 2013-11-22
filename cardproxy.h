@@ -2,17 +2,19 @@
 #define CARDPROXY_H
 
 #include <QGraphicsProxyWidget>
+
 class Card;
 
+/*!
+ * \brief The CardProxy class
+ *
+ * A QGraphicsProxyWidget reimplemented in order to manage mouse events
+ * over the cards of the board.
+ */
 class CardProxy : public QGraphicsProxyWidget
 {
-    Q_OBJECT
 public:
     explicit CardProxy(Card* card);
-
-signals:
-
-public slots:
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);

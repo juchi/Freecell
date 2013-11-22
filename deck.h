@@ -6,13 +6,15 @@
 class Board;
 class Card;
 
+/*!
+ * \brief A card deck
+ */
 class Deck
 {
 public:
     Deck(Board* board);
 
     void shuffle();
-    void showCards();
     Card* drawCard();
     void pushCard(Card*);
 

@@ -1,5 +1,8 @@
 #include "abstractcardholder.h"
 
+/*!
+ * \brief Construtor
+ */
 AbstractCardHolder::AbstractCardHolder()
 {
     mParent = 0;

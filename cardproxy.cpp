@@ -1,11 +1,15 @@
 #include "cardproxy.h"
-#include <QGraphicsSceneMouseEvent>
 #include "card.h"
-#include <iostream>
-#include <QWidget>
-#include <QGraphicsScene>
 #include "cardspotproxy.h"
 
+#include <QGraphicsSceneMouseEvent>
+#include <QWidget>
+#include <QGraphicsScene>
+
+/*!
+ * \brief Constructor
+ * \param card The card linked to this proxy
+ */
 CardProxy::CardProxy(Card* card) :
     QGraphicsProxyWidget()
 {
@@ -13,6 +17,10 @@ CardProxy::CardProxy(Card* card) :
     setData(0, QVariant("card"));
 }
 
+/*!
+ * \brief Handles mouse press events
+ * \param event The mouse event
+ */
 void CardProxy::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
@@ -23,6 +31,10 @@ void CardProxy::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
+/*!
+ * \brief Handles mouse release events
+ * \param event The mouse event
+ */
 void CardProxy::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() == Qt::RightButton) {
@@ -59,6 +71,10 @@ void CardProxy::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
+/*!
+ * \brief Handles mouse mouse events
+ * \param event The mouse event
+ */
 void CardProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->buttons() & Qt::LeftButton) {

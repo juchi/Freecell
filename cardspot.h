@@ -8,6 +8,12 @@ class Card;
 class QPointF;
 class QGraphicsProxyWidget;
 
+/*!
+ * \brief The CardSpot class
+ *
+ * A card spot represents any spot on the board where a card can be stacked
+ * on (freecell, empty ace spot, empty column spot).
+ */
 class CardSpot : public AbstractCardHolder
 {
 public:

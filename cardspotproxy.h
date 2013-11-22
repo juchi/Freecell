@@ -4,8 +4,12 @@
 #include <QGraphicsProxyWidget>
 
 class CardSpot;
-class QGraphicsSceneMouseEvent;
 
+/*!
+ * \brief The CardSpotProxy class
+ *
+ * A proxy widget that represents any card spot (freecell, ace spot, column spot).
+ */
 class CardSpotProxy : public QGraphicsProxyWidget
 {
 public:
