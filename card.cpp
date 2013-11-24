@@ -20,6 +20,8 @@
 #include "cardproxy.h"
 #include "board.h"
 
+#include <QPropertyAnimation>
+
 #include <iostream>
 #include <sstream>
 
@@ -30,6 +32,7 @@ Card::Card(cardcolor color, cardvalue value, Board* board) : AbstractCardHolder(
     mValue = value;
     mBoard = board;
     mIsOnAceSpot = false;
+    mSelected = false;
 
     mWidget = new CardWidget();
     mWidget->setText(getLabel());
@@ -56,7 +59,7 @@ QPixmap Card::getWidgetPixmap()
     return mWidget->grab();
 }
 
-void Card::setParent(AbstractCardHolder* parent)
+void Card::setParent(AbstractCardHolder* parent, bool animate)
 {
     if (mParent) {
         mParent->setChild(0);
@@ -64,7 +67,7 @@ void Card::setParent(AbstractCardHolder* parent)
     mParent = parent;
     if (mParent) {
         mParent->setChild(this);
-        updatePosition();
+        updatePosition(animate);
         mBoard->unselectCard();
     }
 }
@@ -203,6 +206,24 @@ QPoint Card::getPosition()
     return mPosition;
 }
 
+void Card::animatePosition(QPoint pos)
+{
+    mPosition = pos;
+    setZIndex(100);
+
+    QPropertyAnimation *animation = new QPropertyAnimation(mWidget, "pos");
+    animation->setDuration(100);
+    animation->setStartValue(mWidget->pos());
+    animation->setEndValue(mPosition);
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
+
+    QObject::connect(animation, SIGNAL(finished()), this, SLOT(resetZIndex()));
+
+    if (mChild) {
+        mChild->updatePosition(true);
+    }
+}
+
 void Card::setPosition(QPoint pos)
 {
     mPosition = pos;
@@ -212,10 +233,14 @@ void Card::setPosition(QPoint pos)
     }
 }
 
-void Card::updatePosition()
+void Card::updatePosition(bool animate)
 {
-    setPosition(mParent->getChildPosition());
-    setZIndex(mParent->getZIndex() + 1);
+    if (animate) {
+        animatePosition(mParent->getChildPosition());
+    } else {
+        setPosition(mParent->getChildPosition());
+        setZIndex(mParent->getZIndex() + 1);
+    }
 }
 
 int Card::getTopZIndex()
@@ -239,6 +264,11 @@ void Card::setZIndex(int index, bool cascade)
     }
 }
 
+void Card::resetZIndex()
+{
+    setZIndex(mParent->getZIndex() + 1);
+}
+
 void Card::show()
 {
     mWidget->show();
@@ -256,11 +286,17 @@ void Card::select()
 
 void Card::setSelected(bool selected)
 {
-    if (selected) {
+    mSelected = selected;
+    if (mSelected) {
         mWidget->setStyleSheet("CardWidget {background-color:white;border: 2px solid yellow;border-radius:5px;}");
     } else {
         mWidget->setStyleSheet("CardWidget {background-color:white;border: 2px solid black;border-radius:5px;}");
     }
+}
+
+bool Card::isSelected()
+{
+    return mSelected;
 }
 
 void Card::automaticMove()

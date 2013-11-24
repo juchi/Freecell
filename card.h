@@ -32,11 +32,12 @@ class QPixmap;
 
 class Card : public AbstractCardHolder
 {
+    Q_OBJECT
 public:
     Card();
     Card(cardcolor color, cardvalue value, Board* board);
 
-    void setParent(AbstractCardHolder*);
+    void setParent(AbstractCardHolder*, bool = false);
     int countChildren();
 
     bool canStackCard(Card*);
@@ -58,8 +59,9 @@ public:
 
     QPoint getPosition();
     QPoint getChildPosition();
+    void animatePosition(QPoint pos);
     void setPosition(QPoint pos);
-    void updatePosition();
+    void updatePosition(bool animate = false);
     int getTopZIndex();
     int getZIndex();
     void setZIndex(int index, bool cascade = true);
@@ -67,8 +69,12 @@ public:
     void show();
 
     void select();
+    bool isSelected();
     void setSelected(bool selected);
     void automaticMove();
+
+public slots:
+    void resetZIndex();
 
 protected:
     cardcolor mColor;
@@ -79,6 +85,7 @@ protected:
     CardProxy* mProxy;
 
     QPoint mPosition;
+    bool mSelected;
 
     bool mIsOnAceSpot;
 

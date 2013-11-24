@@ -84,6 +84,9 @@ void CardSpot::select()
 {
     Card* card = mBoard->getSelectedCard();
     if (card && canStackCard(card)) {
-        card->setParent(this);
+        card->setParent(this, true);
+    } else if (card) {
+        card->updatePosition(true);
+        mBoard->unselectCard();
     }
 }

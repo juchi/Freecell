@@ -164,7 +164,7 @@ void Board::automaticMove(Card* card)
                 bottomSpot = bottomSpot->getChild();
             }
             if (bottomSpot->canStackCard(card)) {
-                card->setParent(bottomSpot);
+                card->setParent(bottomSpot, true);
                 return;
             }
         }
@@ -173,7 +173,7 @@ void Board::automaticMove(Card* card)
     std::vector<Freecell*>::iterator itFreecell;
     for (itFreecell = mFreeCells.begin(); itFreecell < mFreeCells.end(); itFreecell++) {
         if ((*itFreecell)->isEmpty()) {
-            card->setParent(*itFreecell);
+            card->setParent(*itFreecell, true);
             return;
         }
     }
@@ -230,8 +230,9 @@ void Board::selectCard(Card* card)
         if (card->isOnAceSpot()) {
             mSelectedCard->setOnAceSpot(true);
         }
-        mSelectedCard->setParent(card);
+        mSelectedCard->setParent(card, true);
     } else {
+        if (mSelectedCard) mSelectedCard->updatePosition(true);
         setSelectedCard(card);
     }
 }

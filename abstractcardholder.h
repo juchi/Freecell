@@ -18,10 +18,12 @@
 #ifndef ABSTRACTCARDHOLDER_H
 #define ABSTRACTCARDHOLDER_H
 
+#include <QObject>
+
 class QPoint;
 class Card;
 
-class AbstractCardHolder
+class AbstractCardHolder : public QObject
 {
 public:
     AbstractCardHolder();

@@ -41,8 +41,10 @@ CardProxy::CardProxy(Card* card) :
 void CardProxy::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton) {
-        mCard->select();
-        mCard->setZIndex(100);
+        if (!mCard->isSelected()) {
+            mCard->select();
+            mCard->setZIndex(100);
+        }
     } else if (event->button() == Qt::RightButton) {
         mCard->setZIndex(mCard->getTopZIndex(), false);
     }
@@ -66,25 +68,39 @@ void CardProxy::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         }
     } else if (event->button() == Qt::LeftButton) {
         QList<QGraphicsItem*> items = this->scene()->items(event->scenePos());
+        bool selection = false;
 
+        // if the card is not moved enough, replace it
+        if ((event->buttonDownScenePos(Qt::LeftButton) - event->scenePos()).manhattanLength() < 10) {
+            mCard->updatePosition(true);
+            return;
+        }
+
+        // browse the items underneath
         for (int i = 0; i < items.size(); i++) {
             if (items[i] != this && items[i]->data(0) == QVariant("card")) {
                 CardProxy* proxy = dynamic_cast<CardProxy*>(items[i]);
                 if (proxy->mCard->getChild() == 0) {
                     proxy->mCard->select();
+                    selection = true;
                 }
                 break;
             } else if (items[i] != this && items[i]->data(0) == QVariant("acespot")) {
                 CardSpotProxy* proxy = dynamic_cast<CardSpotProxy*>(items[i]);
                 proxy->select();
+                selection = true;
                 break;
             } else if (items[i] != this && items[i]->data(0) == QVariant("freecell")) {
                 CardSpotProxy* proxy = dynamic_cast<CardSpotProxy*>(items[i]);
                 proxy->select();
+                selection = true;
                 break;
             }
         }
-        mCard->updatePosition();
+        // if not item matches, replace the card at it's original position
+        if (!selection) {
+            mCard->updatePosition(true);
+        }
     }
 }
 
@@ -95,6 +111,7 @@ void CardProxy::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void CardProxy::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->buttons() & Qt::LeftButton) {
+        mCard->setZIndex(100);
         mCard->setPosition(event->scenePos().toPoint() - event->buttonDownPos(Qt::LeftButton).toPoint());
     }
 }
