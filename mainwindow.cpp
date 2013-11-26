@@ -20,6 +20,10 @@
 #include <QMenuBar>
 #include <QApplication>
 
+/*!
+ * \brief Constructor
+ * \param parent The parent widget
+ */
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
 {
@@ -38,12 +42,18 @@ MainWindow::MainWindow(QWidget *parent) :
     newGame();
 }
 
+/*!
+ * \brief Start a new game
+ */
 void MainWindow::newGame()
 {
     endGame();
     mBoard->dealCards();
 }
 
+/*!
+ * \brief Triggers the end of a game
+ */
 void MainWindow::endGame()
 {
     mBoard->collectCards();

@@ -22,6 +22,10 @@
 
 #include <QFrame>
 
+/*!
+ * \brief Constructor
+ * \param board
+ */
 Freecell::Freecell(Board* board) : CardSpot(board)
 {
     mProxy = new CardSpotProxy(this);

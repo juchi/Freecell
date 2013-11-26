@@ -22,6 +22,9 @@
 
 class Board;
 
+/*!
+ * \brief The MainWindow of the application
+ */
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

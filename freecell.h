@@ -22,6 +22,9 @@
 
 class Board;
 
+/*!
+ * \brief A Freecell for holding cards
+ */
 class Freecell : public CardSpot
 {
 public:

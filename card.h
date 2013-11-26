@@ -30,11 +30,13 @@ class CardProxy;
 class Board;
 class QPixmap;
 
+/*!
+ * \brief A Card
+ */
 class Card : public AbstractCardHolder
 {
     Q_OBJECT
 public:
-    Card();
     Card(cardcolor color, cardvalue value, Board* board);
 
     void setParent(AbstractCardHolder*, bool = false);
@@ -49,9 +51,7 @@ public:
 
     QString getValueName();
     QString getColorName();
-    void presents();
     QString getLabel();
-    QPixmap getWidgetPixmap();
 
     cardvalue getValue();
     cardcolor getColor();
